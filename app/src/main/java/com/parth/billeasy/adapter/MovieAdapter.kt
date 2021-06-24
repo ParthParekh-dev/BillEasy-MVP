@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.Toast
 import com.squareup.picasso.Picasso
 import com.parth.billeasy.R
 import com.parth.billeasy.model.MovieList

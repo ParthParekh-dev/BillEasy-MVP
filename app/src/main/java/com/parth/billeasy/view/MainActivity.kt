@@ -49,20 +49,11 @@ class MainActivity : AppCompatActivity(), IMainView {
         movieAdapter = MovieAdapter(baseContext)
         recyclerView.adapter = movieAdapter
 
-//        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-//                    page=page+1
-//                    mainPresenter.getDataFromServer(page)
-//                    Toast.makeText(applicationContext,"Loading Page "+page,Toast.LENGTH_LONG).show()
-//                }
-//            }
-//        })
         if(mainPresenter.isOnline(applicationContext)){
             mainPresenter.getDataFromServer(page)
         }
         else{
+            Toast.makeText(applicationContext,"You are offline, Loading offline results",Toast.LENGTH_LONG).show()
             mainPresenter.getDataFromStorage()
         }
 
@@ -123,9 +114,7 @@ class MainActivity : AppCompatActivity(), IMainView {
         }
     }
 
-    @ExperimentalStdlibApi
     override fun storageResult() {
-
         val gson = Gson()
         val jsonText: String? = sharedPreferences.getString("movies", null)
         val movieList = gson.fromJson(
