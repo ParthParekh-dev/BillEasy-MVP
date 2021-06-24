@@ -7,34 +7,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.Toast
 import com.squareup.picasso.Picasso
 import com.parth.billeasy.R
-import com.parth.billeasy.model.VideoList
+import com.parth.billeasy.model.MovieList
 import java.util.*
 import kotlinx.android.synthetic.main.video_item.view.*
 
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>, Filterable {
 
-    var data: ArrayList<VideoList>
-    var dataSearch: ArrayList<VideoList>
+    var data: ArrayList<MovieList>
+    var dataSearches: ArrayList<MovieList>
     var context: Context
     var itemClickListener: OnItemClickListener? = null
 
     constructor(context: Context) : super() {
-
         this.context = context
         this.data = ArrayList()
-        this.dataSearch = ArrayList()
-
+        this.dataSearches = ArrayList()
     }
 
-    fun setDataValue(data: ArrayList<VideoList>?) {
-        dataSearch.clear()
+    fun setDataValue(data: ArrayList<MovieList>?) {
+        dataSearches.clear()
         this.data.clear()
         this.data.addAll(data!!)
-        this.dataSearch.addAll(data)
-
+        this.dataSearches.addAll(data)
     }
 
     override fun getFilter(): Filter {
@@ -43,9 +41,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>, Filterable {
                 val charText = charSequence.toString().toLowerCase(Locale.getDefault())
                 data.clear()
                 if (charText.length == 0) {
-                    data.addAll(dataSearch)
+                    data.addAll(dataSearches)
                 } else {
-                    for (video in dataSearch) {
+                    for (video in dataSearches) {
                         if (charText.length != 0 && video.title.toLowerCase(Locale.getDefault()).contains(charText)) {
                             data.add(video)
                         }
@@ -58,7 +56,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>, Filterable {
 
             override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
                 @Suppress("UNCHECKED_CAST")
-                data = filterResults.values as ArrayList<VideoList>
+                data = filterResults.values as ArrayList<MovieList>
                 notifyDataSetChanged()
             }
         }
@@ -71,7 +69,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>, Filterable {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         holder.itemView.movieTitle.text = data.get(position).title
         holder.itemView.releaseDate.text = "Release date -"+data.get(position).release_date
         holder.itemView.movieRating.text = data.get(position).rating
@@ -81,7 +78,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>, Filterable {
                 .into(holder.itemView.movieThumbnail)
         }
 
-//        notifyDataSetChanged()
+//        if(position==(getItemCount()-1)){
+//            Toast.makeText(context,"End is Near",Toast.LENGTH_LONG).show()
+//        }
 
 
     }
@@ -107,7 +106,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>, Filterable {
     }
 
     interface OnItemClickListener {
-        fun onItemClicked(video: VideoList)
+        fun onItemClicked(movie: MovieList)
     }
 
 }
