@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity(), IMainView {
             mainPresenter.getDataFromServer(page)
         }
         else{
-            Toast.makeText(applicationContext,"You are offline, Loading offline results",Toast.LENGTH_LONG).show()
             mainPresenter.getDataFromStorage()
         }
 
@@ -122,10 +121,18 @@ class MainActivity : AppCompatActivity(), IMainView {
             Array<MovieList>::class.java
         )
 
-        runOnUiThread {
-            movieAdapter.setDataValue(ArrayList(Arrays.asList(*movieList)))
-            movieAdapter.notifyDataSetChanged()
+        if(movieList == null){
+            Toast.makeText(applicationContext,"Please switch on your wifi/data",Toast.LENGTH_LONG).show()
         }
+        else{
+            runOnUiThread {
+                Toast.makeText(applicationContext,"You are offline, Loading offline results",Toast.LENGTH_LONG).show()
+                movieAdapter.setDataValue(ArrayList(Arrays.asList(*movieList)))
+                movieAdapter.notifyDataSetChanged()
+            }
+        }
+
+
     }
 
 

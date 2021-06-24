@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/constraintView"
     tools:context=".view.SplashActivity">
 
     <ImageView
@@ -28,20 +29,41 @@
         android:text="BillEasy"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/tagline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageview" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/tagline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:gravity="center"
-        android:text="Digitizing Experiences, One Bill at a Time"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:id="@+id/tag1"
+            android:text="Digitizing Experiences, " />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:id="@+id/tag2"
+            android:text="One Bill at a Time." />
+
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
